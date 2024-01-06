@@ -1,1 +1,3 @@
-# NutcrackzD3D12
+# Nutcrackz D3D12
+
+My attempt at making a DirectX 12 game engine...
