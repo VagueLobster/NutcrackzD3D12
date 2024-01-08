@@ -1,23 +1,36 @@
 #include "nzpch.hpp"
 #include "D3D12Renderer.hpp"
 
+#include "rtmcpp/Scalar.hpp"
+#include "rtmcpp/Transforms.hpp"
+#include "rtmcpp/MatrixOps.hpp"
+
 namespace Nutcrackz {
 
 	struct QuadVertex
 	{
 		float Position[3]; // Switch to RTM ASAP!
-		float Color[3];    // Switch to RTM ASAP!
+		float Color[3];
+		
+		//rtmcpp::Vec3 Position; // Switch to RTM ASAP!
+		//rtmcpp::Vec3 Color;  // This doesn't show the correct colors! But, it's the exact same problem with glm!
 	};
 
 	struct Renderer2DData
 	{
-		//glm::vec3 QuadVertexPositions[4];
 		QuadVertex QuadVertexPositions[4] = {
-			{ { -0.5f, -0.5f, 0.0f }, { 1.0f, 0.0f, 0.0f } },
-			{ {  0.5f, -0.5f, 0.0f }, { 0.0f, 1.0f, 0.0f } },
-			{ {  0.5f,  0.5f, 0.0f }, { 0.0f, 1.0f, 1.0f } },
-			{ { -0.5f,  0.5f, 0.0f }, { 0.0f, 0.0f, 1.0f } }
+			{ .Position{ -0.5f, -0.5f, 0.0f }, .Color{ 1.0f, 0.0f, 0.0f } },
+			{ .Position{  0.5f, -0.5f, 0.0f }, .Color{ 0.0f, 1.0f, 0.0f } },
+			{ .Position{  0.5f,  0.5f, 0.0f }, .Color{ 0.0f, 1.0f, 1.0f } },
+			{ .Position{ -0.5f,  0.5f, 0.0f }, .Color{ 0.0f, 0.0f, 1.0f } }
 		};
+
+		//QuadVertex QuadVertexPositions[4] = {
+		//	{ .Position{ -75.0f, -75.0f, 0.0f }, .Color{ 1.0f, 0.0f, 0.0f } },
+		//	{ .Position{  75.0f, -75.0f, 0.0f }, .Color{ 0.0f, 1.0f, 0.0f } },
+		//	{ .Position{  75.0f,  75.0f, 0.0f }, .Color{ 0.0f, 1.0f, 1.0f } },
+		//	{ .Position{ -75.0f,  75.0f, 0.0f }, .Color{ 0.0f, 0.0f, 1.0f } }
+		//};
 
 		uint32_t Indices[6] = {
 			0, 1, 2,
@@ -75,7 +88,7 @@ namespace Nutcrackz {
 			{
 				ThrowIfFailed(D3D12SerializeVersionedRootSignature(&rootSignatureDesc, &signature, &error));
 				ThrowIfFailed(api->Device->CreateRootSignature(0, signature->GetBufferPointer(), signature->GetBufferSize(), IID_PPV_ARGS(&commandList->RootSignature)));
-				commandList->RootSignature->SetName(L"Hello Triangle Root Signature");
+				commandList->RootSignature->SetName(L"Nutcrackz Root Signature");
 			}
 			catch (std::exception e)
 			{
@@ -483,10 +496,10 @@ namespace Nutcrackz {
 		//    return;
 
 		StartTime = std::chrono::high_resolution_clock::now();
-
 		{
 			// Update Uniforms
-			s_Data.MvpMatrices.Model = glm::rotate(s_Data.MvpMatrices.Model, 0.001f * time, glm::vec3(0.0f, 1.0f, 0.0f));
+			m_Quat *= rtmcpp::AngleAxis(0.001f * time, rtmcpp::Vec3(0.0f, -1.0f, 0.0f));
+			s_Data.MvpMatrices.Model = rtmcpp::Mat4Cast(m_Quat);
 
 			D3D12_RANGE readRange;
 			readRange.Begin = 0;
@@ -524,11 +537,14 @@ namespace Nutcrackz {
 
 	void D3D12Renderer::UpdateMVPMatrices(int32_t width, int32_t height)
 	{
-		float zoom = 2.5f;
+		float posX = 0.0f;
+		float posY = 0.0f;
+		float posZ = -2.5f;
+		bool reversedPerspective = true;
 
-		s_Data.MvpMatrices.Projection = glm::perspective(45.0f, (float)width / (float)height, 0.01f, 1024.0f);
-		s_Data.MvpMatrices.View = glm::translate(glm::identity<glm::mat4>(), glm::vec3(0.0f, 0.0f, zoom));
-		s_Data.MvpMatrices.Model = glm::identity<glm::mat4>();
+		s_Data.MvpMatrices.Projection = rtmcpp::Mat4::PerspectiveInfReversedZ(rtmcpp::Radians(45.0f), (float)width / (float)height, 0.01f);
+		s_Data.MvpMatrices.View = rtmcpp::Mat4Cast(rtmcpp::Translation(rtmcpp::Vec3(posX, posY, posZ)));
+		s_Data.MvpMatrices.Model = rtmcpp::Mat4();
 	}
 
 	void D3D12Renderer::ThrowIfFailed(HRESULT hr)

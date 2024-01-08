@@ -4,6 +4,9 @@
 #include "Platform/DirectX12/D3D12API.hpp"
 #include "Platform/DirectX12/D3D12CommandList.hpp"
 
+#include "rtmcpp/Quat.hpp"
+#include "rtmcpp/QuatOps.hpp"
+
 namespace Nutcrackz {
 
 	class D3D12Renderer
@@ -31,6 +34,8 @@ namespace Nutcrackz {
 		ID3D12Resource* m_IndexBuffer = nullptr;
 
 		uint8_t* m_MappedUniformBuffer = nullptr;
+
+		rtmcpp::Quat4 m_Quat = rtmcpp::Quat4();
 	};
 
 }

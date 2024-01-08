@@ -13,9 +13,12 @@
 #pragma comment(lib, "dxguid.lib")
 #endif
 
-#define GLM_FORCE_LEFT_HANDED
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
+#include "rtmcpp/Common.hpp"
+#include "rtmcpp/Transforms.hpp"
+
+//#define GLM_FORCE_LEFT_HANDED
+//#include <glm/glm.hpp>
+//#include <glm/gtc/matrix_transform.hpp>
 
 #include <algorithm>
 #include <chrono>
@@ -32,9 +35,9 @@ namespace Nutcrackz {
 	// Uniform data
 	struct MVPMatrices
 	{
-		glm::mat4 Projection;
-		glm::mat4 Model;
-		glm::mat4 View;
+		rtmcpp::Mat4 Projection;
+		rtmcpp::Mat4 Model;
+		rtmcpp::Mat4 View;
 	};
 
 }

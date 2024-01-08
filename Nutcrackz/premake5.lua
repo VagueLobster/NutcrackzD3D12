@@ -27,7 +27,8 @@ project "Nutcrackz"
 	{
 		"src",
 		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.glm}",
+		"%{IncludeDir.rtm}",
+		"%{IncludeDir.rtmcpp}",
 	}
 	
 	links
@@ -38,11 +39,13 @@ project "Nutcrackz"
 	defines
 	{
 		"_CRT_SECURE_NO_WARNINGS",
+		"RTMCPP_EXPORT="
 	}
 	
 	externalincludedirs
 	{
-		"src/"
+		"src/",
+		"vendor/rtmcpp/rtm/includes/"
 	}
 	
 	forceincludes

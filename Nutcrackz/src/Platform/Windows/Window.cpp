@@ -27,7 +27,7 @@ namespace Nutcrackz {
 					//HRESULT result = window->D3D12Renderer->GetRenderer()->Swapchain->ResizeBuffers(0, (UINT)LOWORD(lParam), (UINT)HIWORD(lParam), DXGI_FORMAT_UNKNOWN, DXGI_SWAP_CHAIN_FLAG_FRAME_LATENCY_WAITABLE_OBJECT);
 					HRESULT result = window->D3D12Renderer->GetRenderer()->Swapchain->ResizeBuffers(s_BackbufferCount, (UINT)LOWORD(lParam), (UINT)HIWORD(lParam), DXGI_FORMAT_UNKNOWN, DXGI_SWAP_CHAIN_FLAG_FRAME_LATENCY_WAITABLE_OBJECT);
 					//HRESULT result = window->D3D12Renderer->GetRenderer()->Swapchain->ResizeBuffers(s_BackbufferCount, (UINT)LOWORD(lParam), (UINT)HIWORD(lParam), DXGI_FORMAT_R8G8B8A8_UNORM, 0);
-					//assert(SUCCEEDED(result) && "Failed to resize swapchain.");
+					//assert(SUCCEEDED(result) && "Failed to resize Swapchain.");
 				}
 
 				UINT width = LOWORD(lParam);

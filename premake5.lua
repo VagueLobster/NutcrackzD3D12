@@ -57,6 +57,7 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 group "Dependencies"
 	include "Nutcrackz/vendor/imgui"
+	include "Nutcrackz/vendor/rtmcpp"
 group ""
 
 group "Core"

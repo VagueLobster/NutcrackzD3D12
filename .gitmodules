@@ -1,6 +1,6 @@
-[submodule "Nutcrackz/vendor/glm"]
-	path = Nutcrackz/vendor/glm
-	url = https://github.com/VagueLobster/glm
 [submodule "Nutcrackz/vendor/imgui"]
 	path = Nutcrackz/vendor/imgui
 	url = https://github.com/VagueLobster/imgui
+[submodule "Nutcrackz/vendor/rtmcpp"]
+	path = Nutcrackz/vendor/rtmcpp
+	url = https://github.com/peter1745/rtmcpp

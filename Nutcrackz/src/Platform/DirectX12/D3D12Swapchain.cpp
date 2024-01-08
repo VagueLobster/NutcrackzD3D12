@@ -3,6 +3,8 @@
 
 #include "Nutcrackz/Core/Window.hpp"
 
+#include "rtmcpp/Scalar.hpp"
+
 namespace Nutcrackz {
 
 	IDXGISwapChain1* CreateSwapchain(Window* window, IDXGIFactory4* factory, ID3D12CommandQueue* queue,
@@ -62,8 +64,8 @@ namespace Nutcrackz {
 
 	void D3D12Swapchain::Resize(int32_t width, int32_t height, Window* window, D3D12API* api, D3D12CommandList* commandList, D3D12Renderer* renderer, D3D12FrameBuffer* frameBuffer)
 	{
-		m_Width = glm::clamp(width, 1, 0xffff);
-		m_Height = glm::clamp(height, 1, 0xffff);
+		m_Width = rtmcpp::Clamp((float)width, 1.0f, (float)0xffff);
+		m_Height = rtmcpp::Clamp((float)height, 1.0f, (float)0xffff);
 
 		// WAITING FOR THE FRAME TO COMPLETE BEFORE CONTINUING IS NOT BEST PRACTICE.
 		// This is code implemented as such for simplicity. The

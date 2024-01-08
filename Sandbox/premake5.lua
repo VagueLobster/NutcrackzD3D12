@@ -21,7 +21,8 @@ project "Sandbox"
 	{
 		"src",
 		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.glm}",
+		"%{IncludeDir.rtm}",
+		"%{IncludeDir.rtmcpp}",
 	}
 
 	externalincludedirs
@@ -32,6 +33,12 @@ project "Sandbox"
 	links
 	{
 		"Nutcrackz",
+	}
+
+	defines
+	{
+		"_CRT_SECURE_NO_WARNINGS",
+		"RTMCPP_EXPORT="
 	}
 
 	filter { "system:windows" }

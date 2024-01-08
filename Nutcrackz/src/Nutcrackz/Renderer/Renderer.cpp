@@ -53,10 +53,4 @@ namespace Nutcrackz {
         m_Swapchain->Resize(width, height, m_Window, m_API.Raw(), m_CommandList.Raw(), m_Renderer.Raw(), m_FrameBuffer.Raw());
 	}
 
-	void Renderer::ThrowIfFailed(HRESULT hr)
-	{
-		if (FAILED(hr))
-			throw std::exception();
-	}
-
 }

@@ -2,7 +2,8 @@
 
 IncludeDir = {}
 IncludeDir["ImGui"] = "%{wks.location}/Nutcrackz/vendor/imgui"
-IncludeDir["glm"] = "%{wks.location}/Nutcrackz/vendor/glm"
+IncludeDir["rtm"] = "%{wks.location}/Nutcrackz/vendor/rtmcpp/rtm/includes"
+IncludeDir["rtmcpp"] = "%{wks.location}/Nutcrackz/vendor/rtmcpp/Include"
 
 Library = {}
 
